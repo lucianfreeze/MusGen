@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://unpkg.com/vexflow/releases/vexflow-min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/webmidi"></script>
+  <script type='text/javascript' src='//www.midijs.net/lib/midi.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <link rel="stylesheet" type="text/css" href="style/style.css">
+
+<body>
+  <div class="jumbotron">
+    <h2>Music Gen: </h2>
+    <h3>An improvisational music generator using Magenta's ImprovRNN model</h3>
+  </div>
+
+  <div class="container justify-content-center" id="appContainer">
+    <div id="musicFrame">
+      <p>
+        Preview Here
+      </p>
+    </div>
+
+    <br>
+
+    <div class="row" id="addChord">
+
+      <div class="chordGroup d-none">
+        <div class="dropdown d-inline chordName">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false"></button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <a class="dropdown-item">Ab</a>
+            <a class="dropdown-item">A</a>
+            <a class="dropdown-item">A#</a>
+            <a class="dropdown-item">Bb</a>
+            <a class="dropdown-item">B</a>
+            <a class="dropdown-item">B#</a>
+            <a class="dropdown-item">Cb</a>
+            <a class="dropdown-item">C</a>
+            <a class="dropdown-item">C#</a>
+            <a class="dropdown-item">Db</a>
+            <a class="dropdown-item">D</a>
+            <a class="dropdown-item">D#</a>
+            <a class="dropdown-item">Eb</a>
+            <a class="dropdown-item">E</a>
+            <a class="dropdown-item">E#</a>
+            <a class="dropdown-item">Fb</a>
+            <a class="dropdown-item">F</a>
+            <a class="dropdown-item">F#</a>
+            <a class="dropdown-item">Gb</a>
+            <a class="dropdown-item">G</a>
+            <a class="dropdown-item">G#</a>
+          </div>
+        </div>
+        <div class="dropdown d-inline chordMod">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false"></button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <a class="dropdown-item">maj</a>
+            <a class="dropdown-item">m</a>
+            <a class="dropdown-item">aug</a>
+            <a class="dropdown-item">dim</a>
+            <a class="dropdown-item">6</a>
+            <a class="dropdown-item">m6</a>
+            <a class="dropdown-item">7</a>
+            <a class="dropdown-item">maj7</a>
+            <a class="dropdown-item">m7</a>
+            <a class="dropdown-item">aug7</a>
+            <a class="dropdown-item">dim7</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="chordGroup">
+        <div class="dropdown d-inline chordName">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false"></button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <a class="dropdown-item">Ab</a>
+            <a class="dropdown-item">A</a>
+            <a class="dropdown-item">A#</a>
+            <a class="dropdown-item">Bb</a>
+            <a class="dropdown-item">B</a>
+            <a class="dropdown-item">B#</a>
+            <a class="dropdown-item">Cb</a>
+            <a class="dropdown-item">C</a>
+            <a class="dropdown-item">C#</a>
+            <a class="dropdown-item">Db</a>
+            <a class="dropdown-item">D</a>
+            <a class="dropdown-item">D#</a>
+            <a class="dropdown-item">Eb</a>
+            <a class="dropdown-item">E</a>
+            <a class="dropdown-item">E#</a>
+            <a class="dropdown-item">Fb</a>
+            <a class="dropdown-item">F</a>
+            <a class="dropdown-item">F#</a>
+            <a class="dropdown-item">Gb</a>
+            <a class="dropdown-item">G</a>
+            <a class="dropdown-item">G#</a>
+          </div>
+        </div>
+        <div class="dropdown d-inline chordMod">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false"></button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <a class="dropdown-item">maj</a>
+            <a class="dropdown-item">m</a>
+            <a class="dropdown-item">aug</a>
+            <a class="dropdown-item">dim</a>
+            <a class="dropdown-item">6</a>
+            <a class="dropdown-item">m6</a>
+            <a class="dropdown-item">7</a>
+            <a class="dropdown-item">maj7</a>
+            <a class="dropdown-item">m7</a>
+            <a class="dropdown-item">aug7</a>
+            <a class="dropdown-item">dim7</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <button class="btn-sm btn-secondary" id="addBtn">+</button>
+    <button class="btn-sm btn-secondary" id="removeBtn">-</button>
+
+    <br><br>
+
+    <button class="btn btn-lg btn-primary" id="submitBtn">Get Melody</button>
+
+    <br><br>
+    <button class="btn-sm btn-primary"
+      onclick="MIDIjs.play('./tmp/'+document.getElementById('filename').innerHTML);">Play!</button>
+    <button class="btn-sm btn-primary" onclick="MIDIjs.stop();">Stop!</button>
+    <a id="filename" href=""></a>
+  </div>
+
+  <br>
+
+  <div id="textContainer">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel urna tellus. Duis auctor, leo id faucibus
+      venenatis,
+      ipsum ligula facilisis nisl, nec venenatis nisi felis et lorem. Vestibulum ante ipsum primis in faucibus orci
+      luctus
+      et ultrices
+      posuere cubilia Curae; Pellentesque dignissim efficitur quam dictum convallis. Suspendisse cursus mi ut sem
+      tempor,
+      sit amet consequat velit laoreet. Morbi sed convallis orci. In vulputate tristique ex, sit amet dictum neque
+      finibus
+      a.
+      Duis eget semper est. Vestibulum semper nunc facilisis felis tempor viverra.</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel urna tellus. Duis auctor, leo id faucibus
+      venenatis,
+      ipsum ligula facilisis nisl, nec venenatis nisi felis et lorem. Vestibulum ante ipsum primis in faucibus orci
+      luctus
+      et ultrices
+      posuere cubilia Curae; Pellentesque dignissim efficitur quam dictum convallis. Suspendisse cursus mi ut sem
+      tempor,
+      sit amet consequat velit laoreet. Morbi sed convallis orci. In vulputate tristique ex, sit amet dictum neque
+      finibus
+      a.
+      Duis eget semper est. Vestibulum semper nunc facilisis felis tempor viverra.</p>
+  </div>
+
+  <script src="javascript/mag.js"></script>
+  <!-- <script src="javascript/vex.js"></script> -->
+</body>
+
+</html>

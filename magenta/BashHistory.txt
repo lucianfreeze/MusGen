@@ -1,0 +1,82 @@
+*
+1/9/19
+
+    1  clear
+    2  ls
+    3  improv_rnn_train --config=chord_pitches_improv --run_dir=/tmp/improv_rnn/logdir/run1 --sequence_example_file=/tmp/improv_rnn/sequence_examples/training_lead_sheets.tfrecord --hparams="batch_size=256,rnn_layer_sizes=[128,128]" --num_training_steps=20000 --eval
+    4  history -a
+    5  history -w /magenta-data/BashHistory.txt
+    6  shopt
+    7  shopt --help
+    8  shopt -s
+    9  shopt -s histappend
+   10  history
+   11  history +> /magenta-data/BashHistory.txt 
+   12  history +>> /magenta-data/BashHistory.txt 
+   13  history >> /magenta-data/BashHistory.txt 
+    1  cd ..
+    2  clear
+    3  ls
+    4  cd magenta-datasets/
+    5  lsa
+    6  ls
+    7  cd ..
+    8  cd tmp
+    9  ls
+   10  clear
+   11  cd ..
+   12  cd tmp/magenta_pkg/
+   13  ls
+   14  clear
+   15  cd ~
+   16  ls
+   17  cd /
+   18  ls
+   19  clera
+   20  clear
+   21  ls
+   22  cd magenta-datasets/
+   23  ls
+   24  cd ..
+   25  improv_rnn_create_dataset --config=chord_pitches_improv --input=/magenta-datasets/Wikifonia --output_dir=/tmp/improv_rnn/sequence_examples --eval_ratio=0.10
+   26  INPUT_DIRECTORY=/magenta-datasets/Wikifonia
+   27  SEQUENCES_TFRECORD=/tmp/WikifoniaNoteSequences.tfrecord
+   28  convert_dir_to_note_sequences --input_dir=$INPUT_DIRECTORY --output_file=$SEQUENCES_TFRECORD --recursive
+   29  clear
+   30  improv_rnn_create_dataset --config=chord_pitches_improv --input=$SEQUENCES_TFRECORD --output_dir=/tmp/improv_rnn/sequence_examples --eval_ratio=0.10
+   31  clear
+   32  improv_rnn_create_dataset --config=chord_pitches_improv --input=$SEQUENCES_TFRECORD --output_dir=/tmp/improv_rnn/sequence_examples --eval_ratio=0.10
+   33  improv_rnn_train --config=chord_pitches_improv --run_dir=/tmp/improv_rnn/logdir/run1 --sequence_example_file=/tmp/improv_rnn/sequence_examples/training_lead_sheets.tfrecord --hparams="batch_size=256,rnn_layer_sizes=[128,128]" --num_training_steps=20000
+   34  history
+   35  history -a
+   36  history -w /magenta-data/BashHistory.txt
+   37  history >> /magenta-data/BashHistory.txt
+    1  clear
+    2  tensorboard --logdir=/tmp/improv_rnn/logdir
+    3  clear
+    4  improv_rnn_generate --config=attention_improv --run_dir=/tmp/improv_rnn/logdir/run1 --output_dir=/magenta-data/Audio --num_outputs=2 --primer_melody="[57]" --backing_chords="Am Dm G C F Bdim E E" --render_chords
+    5  improv_rnn_generate --config=chord_pitches_improv --run_dir=/tmp/improv_rnn/logdir/run1 --output_dir=/magenta-data/Audio --num_outputs=2 --primer_melody="[57]" --backing_chords="Am Dm G C F Bdim E E" --render_chords
+    6  ls
+    7  cd Audio/
+    8  ls
+    9  clear
+   10  improv_rnn_generate --config=chord_pitches_improv --run_dir=/tmp/improv_rnn/logdir/run1 --output_dir=/magenta-data/Audio --num_outputs=2 --primer_melody="[57]" --backing_chords="Am Dm G C F Bdim E E" --render_chords
+   11  clear
+   12  improv_rnn_generate --config=chord_pitches_improv --run_dir=/tmp/improv_rnn/logdir/run1 --output_dir=/magenta-data/Audio --hparams="batch_size=256,rnn_layer_sizes=[128,128]" --num_outputs=2 --primer_melody="[57]" --backing_chords="Am Dm G C F Bdim E E" --render_chords
+   13  tensorboard --logdir=/tmp/improv_rnn/logdir
+   14  clear
+   15  improv_rnn_generate --config=chord_pitches_improv --run_dir=/tmp/improv_rnn/logdir/run1 --output_dir=/magenta-data/Audio --hparams="batch_size=256,rnn_layer_sizes=[128,128]" --num_outputs=2 --primer_melody="[57]" --backing_chords="Am C D F Am C E E Am C D F Am E Am Am" --render_chords
+   16  improv_rnn_generate --config=chord_pitches_improv --run_dir=/tmp/improv_rnn/logdir/run1 --output_dir=/magenta-data/Audio --hparams="batch_size=256,rnn_layer_sizes=[128,128]" --num_outputs=2 --primer_melody="[55, 60, -2, 62, 63, -2, 65, 65, 60, -2, 60, -2]" --backing_chords="Am C D F Am C E E Am C D F Am E Am Am" --render_chords
+   17  improv_rnn_generate --config=chord_pitches_improv --run_dir=/tmp/improv_rnn/logdir/run1 --output_dir=/magenta-data/Audio --hparams="batch_size=256,rnn_layer_sizes=[128,128]" --num_outputs=2 --primer_melody="[55, -2, 60, -2, -2, -2, 62, -2, 63, -2, -2, -2, 65, -2, 65, -2, 60, -2, -2, -2, 60, -2, -2, -2]" --backing_chords="Am C D F Am C E E Am C D F Am E Am Am" --render_chords
+   18* improv_rnn_generate --config=chord_pitches_improv --run_dir=/tmp/improv_rnn/logdir/run1 --output_dir=/magenta-data/Audio --hparams="batch_size=256,rnn_layer_sizes=[128,128]" --num_outputs=2 --primer_melody="[52, -2, -2, 57, -2, -2, -2, -2, 59, -2, -2, 60, -2, -2, -2, 62, -2, 62, -2, 57, -2, -2, -2, 57, -2, -2, -2]" --backing_chords="Am C D F Am C E E Am C D F Am E Am Am" --render_chords
+   19  history
+   20  history -a
+   21  history
+   22  history --help
+   23  history -w /magenta-data/BashHistory.txt
+   24  history >> /magenta-data/BashHistory.txt
+
+
+
+*
+

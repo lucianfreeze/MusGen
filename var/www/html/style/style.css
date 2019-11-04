@@ -1,0 +1,58 @@
+body {
+    background-color: rgb(85, 125, 165);
+}
+
+h2 {
+    color: #BB2222;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+}
+
+h3 {
+    color: black;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+}
+
+p {
+    text-align: justify;
+    padding: 0px 40px;
+
+}
+
+#appContainer {
+    background-color: gainsboro;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.btn {
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.chordGroup {
+    padding: 0px 0px 10px 10px;
+}
+
+
+.dropdown {
+    padding: 0px 0px 0px 0px;
+}
+
+#musicFrame {
+    font-family: serif;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    margin: auto;
+    width: auto;
+    height: auto;
+}
+
+
+/* .chordName{
+    margin: 2px;
+    border: none;
+    display: inline;
+} */
