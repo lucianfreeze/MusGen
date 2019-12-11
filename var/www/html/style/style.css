@@ -16,8 +16,13 @@ h3 {
 
 p {
     text-align: justify;
-    padding: 0px 40px;
+}
 
+#loading {
+    text-align: center;
+    display: block;
+    width: 50px;
+    height: 50px;
 }
 
 #appContainer {
@@ -26,18 +31,21 @@ p {
     border-radius: 10px;
 }
 
-.btn {
+#textContainer {
+    background-color: gainsboro;
+    padding: 20px 30px 20px 30px;
     border-radius: 10px;
+    margin: auto;
+    width: auto;
+    height: auto;
+}
+
+#filename {
     padding: 10px;
 }
 
-.chordGroup {
-    padding: 0px 0px 10px 10px;
-}
-
-
-.dropdown {
-    padding: 0px 0px 0px 0px;
+#melodyControls {
+    text-align: center;
 }
 
 #musicFrame {
@@ -50,6 +58,37 @@ p {
     height: auto;
 }
 
+#addChord {
+    text-align: center;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    margin: auto;
+    width: auto;
+    height: auto;
+}
+
+#add-rm {
+    text-align: center;
+}
+
+.jumbotron {
+    border-radius: 0px;
+}
+
+.btn {
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.chordGroup {
+    padding: 10px;
+}
+
+
+.dropdown {
+    padding: 0px 0px 0px 0px;
+}
 
 /* .chordName{
     margin: 2px;

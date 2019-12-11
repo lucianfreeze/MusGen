@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://unpkg.com/vexflow/releases/vexflow-min.js"></script>
+  <title>MusGen</title>
+  <link rel="icon" type="image/png" href="assets/clef.png">
   <script src="https://cdn.jsdelivr.net/npm/webmidi"></script>
   <script type='text/javascript' src='//www.midijs.net/lib/midi.js'></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -20,25 +21,24 @@
 
 <body>
   <div class="jumbotron">
-    <h2>Music Gen: </h2>
+    <h2>MusGen: </h2>
     <h3>An improvisational music generator using Magenta's ImprovRNN model</h3>
   </div>
 
   <div class="container justify-content-center" id="appContainer">
     <div id="musicFrame">
-      <p>
-        Preview Here
-      </p>
     </div>
 
     <br>
+
+    <h6>Chords</h6>
 
     <div class="row" id="addChord">
 
       <div class="chordGroup d-none">
         <div class="dropdown d-inline chordName">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false"></button>
+            aria-haspopup="true" aria-expanded="false">Note</button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <a class="dropdown-item">Ab</a>
             <a class="dropdown-item">A</a>
@@ -65,10 +65,12 @@
         </div>
         <div class="dropdown d-inline chordMod">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false"></button>
+            aria-haspopup="true" aria-expanded="false">Type</button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <a class="dropdown-item">sus2</a>
             <a class="dropdown-item">maj</a>
             <a class="dropdown-item">m</a>
+            <a class="dropdown-item">sus4</a>
             <a class="dropdown-item">aug</a>
             <a class="dropdown-item">dim</a>
             <a class="dropdown-item">6</a>
@@ -78,6 +80,13 @@
             <a class="dropdown-item">m7</a>
             <a class="dropdown-item">aug7</a>
             <a class="dropdown-item">dim7</a>
+            <a class="dropdown-item">9</a>
+            <a class="dropdown-item">add9</a>
+            <a class="dropdown-item">maj9</a>
+            <a class="dropdown-item">m9</a>
+            <a class="dropdown-item">13</a>
+            <a class="dropdown-item">maj13</a>
+            <a class="dropdown-item">m13</a>
           </div>
         </div>
       </div>
@@ -85,7 +94,7 @@
       <div class="chordGroup">
         <div class="dropdown d-inline chordName">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false"></button>
+            aria-haspopup="true" aria-expanded="false">Note</button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <a class="dropdown-item">Ab</a>
             <a class="dropdown-item">A</a>
@@ -112,10 +121,12 @@
         </div>
         <div class="dropdown d-inline chordMod">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false"></button>
+            aria-haspopup="true" aria-expanded="false">Type</button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <a class="dropdown-item">sus2</a>
             <a class="dropdown-item">maj</a>
             <a class="dropdown-item">m</a>
+            <a class="dropdown-item">sus4</a>
             <a class="dropdown-item">aug</a>
             <a class="dropdown-item">dim</a>
             <a class="dropdown-item">6</a>
@@ -125,56 +136,57 @@
             <a class="dropdown-item">m7</a>
             <a class="dropdown-item">aug7</a>
             <a class="dropdown-item">dim7</a>
+            <a class="dropdown-item">9</a>
+            <a class="dropdown-item">add9</a>
+            <a class="dropdown-item">maj9</a>
+            <a class="dropdown-item">m9</a>
+            <a class="dropdown-item">13</a>
+            <a class="dropdown-item">maj13</a>
+            <a class="dropdown-item">m13</a>
           </div>
         </div>
       </div>
     </div>
 
+    <br>
 
-    <button class="btn-sm btn-secondary" id="addBtn">+</button>
-    <button class="btn-sm btn-secondary" id="removeBtn">-</button>
+    <div id="add-rm">
+      <button class="btn-sm btn-secondary" id="addBtn">Add</button>
+      <button class="btn-sm btn-secondary" id="removeBtn">Remove</button>
+    </div>
+    
+    <br>
 
-    <br><br>
+    <div id="melodyControls">
+      <button class="btn btn-lg btn-primary" id="melodyBtn">Get Melody</button>
 
-    <button class="btn btn-lg btn-primary" id="submitBtn">Get Melody</button>
+      <br>
+      <a id="filename" href=""></a>
+      <br>
 
-    <br><br>
-    <button class="btn-sm btn-primary"
-      onclick="MIDIjs.play('./tmp/'+document.getElementById('filename').innerHTML);">Play!</button>
-    <button class="btn-sm btn-primary" onclick="MIDIjs.stop();">Stop!</button>
-    <a id="filename" href=""></a>
+      <button id="playBtn" class="btn-sm btn-primary"
+        onclick="MIDIjs.play('./midi/'+document.getElementById('filename').innerHTML);">Play!</button>
+      <button id="stopBtn" class="btn-sm btn-primary" onclick="MIDIjs.stop();">Stop!</button>
+    </div>
   </div>
 
   <br>
 
-  <div id="textContainer">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel urna tellus. Duis auctor, leo id faucibus
-      venenatis,
-      ipsum ligula facilisis nisl, nec venenatis nisi felis et lorem. Vestibulum ante ipsum primis in faucibus orci
-      luctus
-      et ultrices
-      posuere cubilia Curae; Pellentesque dignissim efficitur quam dictum convallis. Suspendisse cursus mi ut sem
-      tempor,
-      sit amet consequat velit laoreet. Morbi sed convallis orci. In vulputate tristique ex, sit amet dictum neque
-      finibus
-      a.
-      Duis eget semper est. Vestibulum semper nunc facilisis felis tempor viverra.</p>
-
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel urna tellus. Duis auctor, leo id faucibus
-      venenatis,
-      ipsum ligula facilisis nisl, nec venenatis nisi felis et lorem. Vestibulum ante ipsum primis in faucibus orci
-      luctus
-      et ultrices
-      posuere cubilia Curae; Pellentesque dignissim efficitur quam dictum convallis. Suspendisse cursus mi ut sem
-      tempor,
-      sit amet consequat velit laoreet. Morbi sed convallis orci. In vulputate tristique ex, sit amet dictum neque
-      finibus
-      a.
-      Duis eget semper est. Vestibulum semper nunc facilisis felis tempor viverra.</p>
+  <div class="container" id="textContainer">
+    <h3>About MusGen</h3>
+    <p>MusGen is a web utility which allows musicians and composers to input possible chord progressions and 
+      receive an intelligently generated melody based on the input progressions. The application operates with a 
+      client-server architecture and is usable via the web browser on almost any platform, device, or screen size. 
+      MusGen employs Magenta’s ImprovRNN on the server-side, a recurrent neural network model which produces a relevant 
+      melodic output in the form of MIDI data. This model was trained on a large collection of lead sheets for 
+      established musical works. Using the trends and relationships found in this training data, the model is able 
+      to appropriately “compose” melodies which correspond musically to the given chords. The generated melodic ideas 
+      are served to the user both in MIDI format and visually in the form of sheet music. The application's outputs are 
+      intended to spark new musical concepts or be re-purposed in a user's compositions.</p>
+    
   </div>
 
   <script src="javascript/mag.js"></script>
-  <!-- <script src="javascript/vex.js"></script> -->
-</body>
 
+</body>
 </html>
